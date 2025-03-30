@@ -5,8 +5,11 @@
 #include <QGraphicsView>
 
 // 管理場景 //
-#include "LaboratoryScene.h"
-#include "TitleScene.h"
+#include "src/scenes/TitleScene.h"
+#include "src/scenes/LaboratoryScene.h"
+
+// 管理資料 //
+#include "src/core/ResourceManager.h"
 
 
 class GameWindow : public QMainWindow {
@@ -17,18 +20,25 @@ public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
 
-    // 切換場景
-    void switchScene(int index);
-
 private:
     // 主要顯示
     QGraphicsView *view;
 
+    // 資料
+    ResourceManager *resourceManager;
+
     // 場景們
     TitleScene *titleScene = nullptr;
+    LaboratoryScene *laboratoryScene = nullptr;
 
     // 現在顯示的場景
-    QGraphicsScene *currentScene = nullptr;
+    Scene *currentScene = nullptr;
+
+    // 切換場景
+    void switchScene(int index);
+
+private slots:
+    void startGame();
 };
 
 #endif // GAMEWINDOW_H
