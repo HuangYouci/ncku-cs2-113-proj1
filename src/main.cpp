@@ -1,4 +1,3 @@
-#include "Constants.h"
 #include "GameWindow.h"
 
 #include <QApplication>

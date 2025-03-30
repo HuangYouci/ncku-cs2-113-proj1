@@ -10,11 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     src/GameWindow.cpp \
+    src/LaboratoryScene.cpp \
+    src/TitleScene.cpp \
     src/main.cpp
 
 HEADERS += \
-    src/Constants.h \
-    src/GameWindow.h
+    src/GameWindow.h \
+    src/LaboratoryScene.h \
+    src/TitleScene.h
 
 FORMS +=
 

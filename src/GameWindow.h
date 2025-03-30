@@ -2,26 +2,33 @@
 #define GAMEWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsView>
 
-class GameWindow: public QMainWindow {
+// 管理場景 //
+#include "LaboratoryScene.h"
+#include "TitleScene.h"
+
+
+class GameWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    explicit GameWindow(QWidget *parent = nullptr);
+    // 建構與解構
+    GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
 
-protected:
-    void keyPressEvent(QKeyEvent *event) override;
-    void paintEvent(QPaintEvent *event) override;
+    // 切換場景
+    void switchScene(int index);
 
 private:
-    int playerX = 245;
-    int playerY = 201;
+    // 主要顯示
+    QGraphicsView *view;
 
-    // 玩家走路狀態 //
-    QPixmap playerImage = QPixmap(":/images/player/player_F.png");
-    int playerWalkingStatus = 0;
-    QPixmap playerImageFromWalkingStatus(int playerWalkingStatus);
+    // 場景們
+    TitleScene *titleScene = nullptr;
+
+    // 現在顯示的場景
+    QGraphicsScene *currentScene = nullptr;
 };
 
-#endif
+#endif // GAMEWINDOW_H
