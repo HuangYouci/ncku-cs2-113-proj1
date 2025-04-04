@@ -1,5 +1,6 @@
 #include "LaboratoryScene.h"
 #include "src/GameWindow.h"
+#include <QStringList>
 
 LaboratoryScene::LaboratoryScene(QObject *parent, ResourceManager *resourceManager) : Scene(parent, resourceManager) {
     qDebug() << "[LaboratoryScene] 實驗室場景已構建";
@@ -7,6 +8,12 @@ LaboratoryScene::LaboratoryScene(QObject *parent, ResourceManager *resourceManag
 }
 
 void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
+
+    if (uiDialog->isVisible()) {
+        QGraphicsScene::keyPressEvent(event); // Pass the event to the dialog
+        return;
+    }
+
     switch (event->key()) {
         case Qt::Key_Up:
             qDebug() << "[LaboratoryScene] 已按鍵「↑」";
@@ -80,6 +87,11 @@ void LaboratoryScene::setupScene() {
     barriers.append(new Barrier(1000, 1438, 455, 1)); // 下邊界
     barriers.append(new Barrier(1210, 1100, 30, 40)); // 博士NPC
 
+    // 對話匡建立
+    uiDialog = new UIdialog(resourceManager->getFont(25), QColor(Qt::black));
+    addItem(uiDialog);
+    uiDialog->hideDialogue();
+
     for (Barrier *barrier : barriers ) {
         addItem(barrier);
     }
@@ -152,5 +164,9 @@ void LaboratoryScene::centerOnPlayer(){
 void LaboratoryScene::showNPCdialog(int x, int y){
     if ( ( x > 1110 ) && ( x < 1310 ) && ( y > 1000 ) && ( y < 1200 ) ){
         qDebug() << "[LaboratoryScene] 觸發對話！";
+        QStringList dialogues = {"我是大木博士，歡迎來到我的實驗室！", "你可以在實驗室選擇三個寶可夢球中\n的一個作為你的初始寶可夢。"};
+        uiDialog->setDialogues(dialogues);
+        uiDialog->setPos(playerX, playerY);
+        uiDialog->showDialogue();
     }
 }

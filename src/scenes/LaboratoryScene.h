@@ -10,6 +10,7 @@
 #include "src/entities/Player.h"
 #include "src/entities/Barrier.h"
 #include "src/entities/NPC.h"
+#include "src/ui/UIdialog.h"
 
 class LaboratoryScene : public Scene
 {
@@ -26,6 +27,7 @@ private:
     NPC *npc;
     QGraphicsPixmapItem *bgItem;
     QList<Barrier*> barriers;
+    UIdialog *uiDialog;
 
     // --- 暫存數值 --- //
     int playerX;
