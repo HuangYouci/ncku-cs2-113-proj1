@@ -4,39 +4,40 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QList>
 
 #include "src/core/Scene.h"
 #include "src/entities/Player.h"
 #include "src/entities/Barrier.h"
+#include "src/entities/NPC.h"
 
 class LaboratoryScene : public Scene
 {
 public:
+    // 玩家
+    Player *player;
     LaboratoryScene(QObject *parent = nullptr, ResourceManager *resourceManager = nullptr);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
-    // 玩家
-    Player *player;
-
-    // 背景
+    // --- 場景元素 --- //
+    NPC *npc;
     QGraphicsPixmapItem *bgItem;
-    Barrier *barrier01;
-    Barrier *barrier02;
-    Barrier *barrier03;
-    Barrier *barrier04;
-    Barrier *barrier05;
-    Barrier *barrier06;
-    Barrier *barrier07;
-    Barrier *barrier08;
-    int movingX = 0;
-    int movingY = 0;
-    void setupScene();
-    void movingScene(int x, int y);
-    bool barrierTest(int x, int y);
-    bool barrierEachTest(Barrier *item, int x, int y);
+    QList<Barrier*> barriers;
+
+    // --- 暫存數值 --- //
+    int playerX;
+    int playerY;
+    int dialogProgress = 0;
+
+    // --- 函數功能 --- //
+    void centerOnPlayer(); // 居中玩家
+    void setupScene(); // 設置場景
+    void move(int x, int y); // 移動
+    bool barrierTest(int x, int y); // 檢查屏障
+    void showNPCdialog(int x, int y); // 觸發對話
 };
 
 #endif // LABORATORYSCENE_H

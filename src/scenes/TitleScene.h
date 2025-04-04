@@ -18,7 +18,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 signals:
-    void startGame();
+    void switchScene(int index);
 
 private:
     void setupScene();

@@ -20,6 +20,9 @@ public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
 
+    // 聚焦玩家
+    void centerOnPlayer();
+
 private:
     // 主要顯示
     QGraphicsView *view;
@@ -34,11 +37,9 @@ private:
     // 現在顯示的場景
     Scene *currentScene = nullptr;
 
+private slots:
     // 切換場景
     void switchScene(int index);
-
-private slots:
-    void startGame();
 };
 
 #endif // GAMEWINDOW_H

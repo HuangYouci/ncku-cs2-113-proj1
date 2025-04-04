@@ -17,7 +17,7 @@ void TitleScene::keyPressEvent(QKeyEvent *event){
     switch (event->key()){
     default:
         qDebug() << "[TitleScene] 任意鍵已被按下";
-        emit startGame();
+        emit switchScene(1);
         break;
     }
 }

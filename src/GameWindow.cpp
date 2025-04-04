@@ -1,6 +1,7 @@
 #include "GameWindow.h"
 
 #include <QDebug>
+#include <QTimer>
 
 GameWindow::GameWindow(QWidget *parent) : QMainWindow(parent) {
     qDebug() << "[GameWindow] 已被建構";
@@ -27,7 +28,7 @@ GameWindow::GameWindow(QWidget *parent) : QMainWindow(parent) {
     laboratoryScene = new LaboratoryScene(this, resourceManager);
 
     // 建立信號連結
-    connect(titleScene, &TitleScene::startGame, this, &GameWindow::startGame);
+    connect(titleScene, &TitleScene::switchScene, this, &GameWindow::switchScene);
 
     // 切換場景
     switchScene(0);
@@ -54,6 +55,7 @@ void GameWindow::switchScene(int index) {
         break;
     case 1:
         currentScene = laboratoryScene;
+        QTimer::singleShot(0, this, &GameWindow::centerOnPlayer);
         setWindowTitle("[Laboratory] Pokémon RPG (Group 17, Introduction to Computer Science, 2025 Spring, NCKU EE)");
         break;
     }
@@ -62,7 +64,10 @@ void GameWindow::switchScene(int index) {
     view->setFocus();
 }
 
-void GameWindow::startGame() {
-    qDebug() << "[GameWindow] 接收到開始遊戲";
-    switchScene(1);
+void GameWindow::centerOnPlayer() {
+    if (currentScene == laboratoryScene) {
+        // 將 LaboratoryScene 轉型並獲取玩家位置
+        LaboratoryScene *labScene = static_cast<LaboratoryScene*>(currentScene);
+        view->centerOn(labScene->player); // 將視圖中心鎖定在玩家上
+    }
 }

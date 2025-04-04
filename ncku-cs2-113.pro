@@ -11,21 +11,25 @@ CONFIG += c++11
 SOURCES += \
     src/GameWindow.cpp \
     src/entities/Barrier.cpp \
+    src/entities/NPC.cpp \
     src/entities/Player.cpp \
     src/scenes/TitleScene.cpp \
     src/scenes/LaboratoryScene.cpp \
     src/core/ResourceManager.cpp \
     src/core/Scene.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/ui/UIdialog.cpp
 
 HEADERS += \
     src/GameWindow.h \
     src/entities/Barrier.h \
+    src/entities/NPC.h \
     src/entities/Player.h \
     src/scenes/TitleScene.h \
     src/scenes/LaboratoryScene.h \
     src/core/ResourceManager.h \
-    src/core/Scene.h
+    src/core/Scene.h \
+    src/ui/UIdialog.h
 
 FORMS +=
 
