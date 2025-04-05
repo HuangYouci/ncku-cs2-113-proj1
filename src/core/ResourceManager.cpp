@@ -13,8 +13,22 @@ ResourceManager::~ResourceManager(){
 
 }
 
+// === 系統資料 === //
+// 像素字體
+
 QFont ResourceManager::getFont(int size) const {
     QFont font = defaultFont;
     font.setPointSize(size);
     return font;
+}
+
+
+// === 玩家資料 === //
+// 和實驗室的大木博士交談次數
+int ResourceManager::getTalkToLabNPCTimes() {
+    return talkToLabNPCTimes;
+}
+
+void ResourceManager::addTalkToLabNPCTimes() {
+    talkToLabNPCTimes++;
 }

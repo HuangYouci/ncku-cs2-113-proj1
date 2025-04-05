@@ -1,6 +1,5 @@
 #include "LaboratoryScene.h"
 #include "src/GameWindow.h"
-#include <QStringList>
 
 LaboratoryScene::LaboratoryScene(QObject *parent, ResourceManager *resourceManager) : Scene(parent, resourceManager) {
     qDebug() << "[LaboratoryScene] 實驗室場景已構建";
@@ -67,11 +66,29 @@ void LaboratoryScene::setupScene() {
     playerX = 1100;
     playerY = 1100;
     player->setPos(playerX, playerY);
+    qDebug() << "[LaboratoryScene] 玩家已載入";
 
     // NPC 建立
     npc = new NPC();
     addItem(npc);
     npc->setPos(1210,1100);
+    qDebug() << "[LaboratoryScene] NPC 已載入";
+
+    // 三個寶貝球
+    QPixmap pokeball(":/images/other/ball.png");
+    pokeball01 = new QGraphicsPixmapItem(pokeball);
+    pokeball02 = new QGraphicsPixmapItem(pokeball);
+    pokeball03 = new QGraphicsPixmapItem(pokeball);
+    addItem(pokeball01);
+    addItem(pokeball02);
+    addItem(pokeball03);
+    pokeball01->setPos(1290,1135);
+    pokeball01->setScale(0.8);
+    pokeball02->setPos(1320,1135);
+    pokeball02->setScale(0.8);
+    pokeball03->setPos(1350,1135);
+    pokeball03->setScale(0.8);
+    qDebug() << "[LaboratoryScene] 寶貝球已載入";
 
     // 屏障建立
     barriers.append(new Barrier(1000, 1000, 455, 70)); // 最上方一排
@@ -164,9 +181,20 @@ void LaboratoryScene::centerOnPlayer(){
 void LaboratoryScene::showNPCdialog(int x, int y){
     if ( ( x > 1110 ) && ( x < 1310 ) && ( y > 1000 ) && ( y < 1200 ) ){
         qDebug() << "[LaboratoryScene] 觸發對話！";
-        QStringList dialogues = {"我是大木博士，歡迎來到我的實驗室！", "你可以在實驗室選擇三個寶可夢球中\n的一個作為你的初始寶可夢。"};
+        dialogues.clear();
+
+        if (resourceManager->getTalkToLabNPCTimes() > 0){
+            dialogues << "你還有什麼問題嗎？" << "趕快去進行你的冒險。";
+        } else {
+            dialogues << "我是大木博士，歡迎來到我的實驗室！" << "你可以在實驗室選擇三個寶可夢球中\n的一個作為你的初始寶可夢。";
+        }
+
         uiDialog->setDialogues(dialogues);
         uiDialog->setPos(playerX, playerY);
         uiDialog->showDialogue();
+
+
+        resourceManager->addTalkToLabNPCTimes();
+
     }
 }

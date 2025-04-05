@@ -12,12 +12,12 @@ UIdialog::UIdialog(const QFont &font, const QColor &textColor, QGraphicsItem *pa
     background = new QGraphicsPixmapItem(backgroundImage, this);
 
     // Set the position and size
-    background->setPos(-240, 100);
+    background->setPos(-245, 100);
 
     dialogueText = new QGraphicsTextItem(this);
     dialogueText->setFont(this->font);
     dialogueText->setDefaultTextColor(this->textColor);
-    dialogueText->setPos(-220,110);
+    dialogueText->setPos(-235,110);
 
 }
 

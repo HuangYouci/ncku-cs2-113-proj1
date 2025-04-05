@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QList>
+#include <QStringList>
 
 #include "src/core/Scene.h"
 #include "src/entities/Player.h"
@@ -28,11 +29,15 @@ private:
     QGraphicsPixmapItem *bgItem;
     QList<Barrier*> barriers;
     UIdialog *uiDialog;
+    QGraphicsPixmapItem *pokeball01;
+    QGraphicsPixmapItem *pokeball02;
+    QGraphicsPixmapItem *pokeball03;
+
 
     // --- 暫存數值 --- //
     int playerX;
     int playerY;
-    int dialogProgress = 0;
+    QStringList dialogues;
 
     // --- 函數功能 --- //
     void centerOnPlayer(); // 居中玩家
