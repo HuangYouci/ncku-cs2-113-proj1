@@ -36,6 +36,13 @@ private:
     QGraphicsPixmapItem *potionBag;
     QGraphicsPixmapItem *etherBag;
 
+    QGraphicsPixmapItem *charmanderBag;
+    QGraphicsPixmapItem *bulbasaurBag;
+    QGraphicsPixmapItem *squirtleBag;
+    QGraphicsTextItem *charmanderText;
+    QGraphicsTextItem *bulbasaurText;
+    QGraphicsTextItem *squirtleText;
+
     void updateItem();
 };
 

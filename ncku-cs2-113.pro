@@ -19,6 +19,7 @@ SOURCES += \
     src/core/Scene.cpp \
     src/main.cpp \
     src/ui/UIbag.cpp \
+    src/ui/UIchoose.cpp \
     src/ui/UIdialog.cpp
 
 HEADERS += \
@@ -31,6 +32,7 @@ HEADERS += \
     src/core/ResourceManager.h \
     src/core/Scene.h \
     src/ui/UIbag.h \
+    src/ui/UIchoose.h \
     src/ui/UIdialog.h
 
 FORMS +=

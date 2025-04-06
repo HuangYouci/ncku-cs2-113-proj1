@@ -8,7 +8,7 @@ LaboratoryScene::LaboratoryScene(QObject *parent, ResourceManager *resourceManag
 
 void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
 
-    if (uiDialog->isVisible() || uiBag->isVisible()) {
+    if (uiDialog->isVisible() || uiBag->isVisible() || uiChoose->isVisible()) {
         QGraphicsScene::keyPressEvent(event); // Pass the event to UI
         return;
     }
@@ -23,6 +23,12 @@ void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
             qDebug() << "[LaboratoryScene] 已按鍵「↓」";
             player->moveDown();
             move(0, 10);
+
+            // CHECK IF PLAYER WANT LEAVE THE SCENE.
+            if ((playerX > 1180) && (playerX < 1240) && (playerY > 1360)){
+                switchScene(0);
+            }
+
             break;
         case Qt::Key_Left:
             qDebug() << "[LaboratoryScene] 已按鍵「←」";
@@ -36,7 +42,8 @@ void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
             break;
         case Qt::Key_A:
             qDebug() << "[LaboratoryScene] 已按鍵「A」";
-            showNPCdialog(playerX, playerY);
+            if (showNPCdialog(playerX, playerY)) { break; }
+            showUIchoose(playerX, playerY);
             break;
         case Qt::Key_B:
             qDebug() << "[LaboratoryScene] 已按鍵「B」";
@@ -49,6 +56,7 @@ void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
             return;
         }
 
+        qDebug() << "[LaboratoryScene] 玩家目前位置 (" << playerX << "," << playerY << ")";
         event->accept(); // 標記事件已被處理
 }
 
@@ -69,8 +77,8 @@ void LaboratoryScene::setupScene() {
     // 玩家建立
     player = new Player();
     addItem(player);
-    playerX = 1100;
-    playerY = 1100;
+    playerX = 1210;
+    playerY = 1360;
     player->setPos(playerX, playerY);
     qDebug() << "[LaboratoryScene] 玩家已載入";
 
@@ -124,6 +132,10 @@ void LaboratoryScene::setupScene() {
     addItem(uiBag);
     uiBag->hideBag();
 
+    // 選擇初始寶可夢建立
+    uiChoose = new UIchoose(resourceManager);
+    addItem(uiChoose);
+    uiChoose->hide();
 }
 
 void LaboratoryScene::move(int x, int y) {
@@ -140,7 +152,7 @@ void LaboratoryScene::move(int x, int y) {
         }
 
         // 如果有碰撞，逐步調整
-        qDebug() << "[LaboratoryScene] 碰撞測試失敗（於" << x << "," << y << "）";
+        // qDebug() << "[LaboratoryScene] 碰撞測試失敗（於" << x << "," << y << "）";
 
         // 如果 x 和 y 都到達 0，停止移動
         if (x == 0 && y == 0) {
@@ -173,7 +185,7 @@ bool LaboratoryScene::barrierTest(int x, int y) {
         QRectF playerFutureRect = player->boundingRect().translated(player->pos() + QPointF(x, y));
         QRectF barrierRect = barrier->boundingRect().translated(barrier->pos());
         if (playerFutureRect.intersects(barrierRect)) {
-            qDebug() << "[LaboratoryScene] 不能走路，檢測到碰撞於:" << barrier->pos();
+            qDebug() << "[LaboratoryScene] 不能走路";
             return true; // 沒通過
         }
 
@@ -189,8 +201,8 @@ void LaboratoryScene::centerOnPlayer(){
         }
 }
 
-void LaboratoryScene::showNPCdialog(int x, int y){
-    if ( ( x > 1110 ) && ( x < 1310 ) && ( y > 1000 ) && ( y < 1200 ) ){
+bool LaboratoryScene::showNPCdialog(int x, int y){
+    if ( ( x > 1170 ) && ( x < 1250 ) && ( y > 1070 ) && ( y < 1150 ) ){
         qDebug() << "[LaboratoryScene] 觸發對話！";
         dialogues.clear();
 
@@ -206,6 +218,30 @@ void LaboratoryScene::showNPCdialog(int x, int y){
 
 
         resourceManager->addTalkToLabNPCTimes();
+        return true;
+    }
+    return false;
+}
+
+bool LaboratoryScene::showUIchoose(int x, int y){
+    if ( ( x > 1240 ) && ( x < 1390 ) && ( y > 1085 ) && ( y < 1190 ) ){
+        qDebug() << "[LaboratoryScene] 觸發選擇寶可夢！";
+
+        if (resourceManager->getCharmander() || resourceManager->getBulbasaur() || resourceManager->getSquirtle()){
+            // 已經取得過
+            dialogues.clear();
+            dialogues << "你已經取得過初始寶可夢了！\n不可以再次獲得。" << "趕快出去冒險吧！";
+            uiDialog->setDialogues(dialogues);
+            uiDialog->setPos(playerX, playerY);
+            uiDialog->showDialogue();
+        } else {
+            // 尚未取得任一初始寶可夢
+            uiChoose->show();
+            uiChoose->setPos(playerX, playerY);
+        }
+
+        return true;
 
     }
+    return false;
 }

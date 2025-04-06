@@ -13,9 +13,12 @@
 #include "src/entities/NPC.h"
 #include "src/ui/UIdialog.h"
 #include "src/ui/UIbag.h"
+#include "src/ui/UIchoose.h"
 
 class LaboratoryScene : public Scene
 {
+Q_OBJECT
+
 public:
     // 玩家
     Player *player;
@@ -24,6 +27,9 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
+signals:
+    void switchScene(int index);
+
 private:
     // --- 場景元素 --- //
     NPC *npc;
@@ -31,6 +37,7 @@ private:
     QList<Barrier*> barriers;
     UIdialog *uiDialog;
     UIbag *uiBag;
+    UIchoose *uiChoose;
     QGraphicsPixmapItem *pokeball01;
     QGraphicsPixmapItem *pokeball02;
     QGraphicsPixmapItem *pokeball03;
@@ -46,7 +53,8 @@ private:
     void setupScene(); // 設置場景
     void move(int x, int y); // 移動
     bool barrierTest(int x, int y); // 檢查屏障
-    void showNPCdialog(int x, int y); // 觸發對話
+    bool showNPCdialog(int x, int y); // 觸發對話
+    bool showUIchoose(int x, int y); // 觸發選擇寶可夢
 };
 
 #endif // LABORATORYSCENE_H

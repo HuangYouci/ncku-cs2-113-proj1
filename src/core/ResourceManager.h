@@ -23,6 +23,15 @@ public:
     int getPotionCount();
     // 復活數量
     int getEtherCount();
+    // 是否有小火龍
+    bool getCharmander();
+    void toggleCharmander();
+    // 是否有妙哇種子
+    bool getBulbasaur();
+    void toggleBulbasaur();
+    // 是否有水箭龜
+    bool getSquirtle();
+    void toggleSquirtle();
 
 private:
     // === 系統資料 === //
@@ -38,6 +47,12 @@ private:
     int potionCount = 0;
     // 復活數量
     int etherCount = 0;
+    // 是否有小火龍
+    bool charmander = false;
+    // 是否有妙蛙種子
+    bool bulbasaur = false;
+    // 是否有水箭龜
+    bool squirtle = false;
 
 };
 

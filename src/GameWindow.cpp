@@ -29,16 +29,13 @@ GameWindow::GameWindow(QWidget *parent) : QMainWindow(parent) {
 
     // 建立信號連結
     connect(titleScene, &TitleScene::switchScene, this, &GameWindow::switchScene);
+    connect(laboratoryScene, &LaboratoryScene::switchScene, this, &GameWindow::switchScene);
 
     // 切換場景
     switchScene(0);
 }
 
 GameWindow::~GameWindow() {
-    delete titleScene;
-    delete view;
-    delete resourceManager;
-    delete laboratoryScene;
 }
 
 void GameWindow::switchScene(int index) {
