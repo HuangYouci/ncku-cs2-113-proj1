@@ -18,6 +18,7 @@ SOURCES += \
     src/core/ResourceManager.cpp \
     src/core/Scene.cpp \
     src/main.cpp \
+    src/scenes/TownScene.cpp \
     src/ui/UIbag.cpp \
     src/ui/UIchoose.cpp \
     src/ui/UIdialog.cpp
@@ -31,6 +32,7 @@ HEADERS += \
     src/scenes/LaboratoryScene.h \
     src/core/ResourceManager.h \
     src/core/Scene.h \
+    src/scenes/TownScene.h \
     src/ui/UIbag.h \
     src/ui/UIchoose.h \
     src/ui/UIdialog.h

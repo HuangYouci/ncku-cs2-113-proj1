@@ -24,6 +24,15 @@ QFont ResourceManager::getFont(int size) const {
 
 
 // === 玩家資料 === //
+
+// 上一個場景
+QString ResourceManager::getPreviousScene(){
+    return previousScene;
+}
+void ResourceManager::setPreviousScene(QString target){
+    previousScene = target;
+}
+
 // 和實驗室的大木博士交談次數
 int ResourceManager::getTalkToLabNPCTimes() {
     return talkToLabNPCTimes;

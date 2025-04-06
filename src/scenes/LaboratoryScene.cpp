@@ -26,7 +26,8 @@ void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
 
             // CHECK IF PLAYER WANT LEAVE THE SCENE.
             if ((playerX > 1180) && (playerX < 1240) && (playerY > 1360)){
-                switchScene(0);
+                resourceManager->setPreviousScene("LAB");
+                switchScene(2); // 去town
             }
 
             break;

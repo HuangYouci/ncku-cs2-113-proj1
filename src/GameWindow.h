@@ -7,6 +7,7 @@
 // 管理場景 //
 #include "src/scenes/TitleScene.h"
 #include "src/scenes/LaboratoryScene.h"
+#include "src/scenes/TownScene.h"
 
 // 管理資料 //
 #include "src/core/ResourceManager.h"
@@ -23,6 +24,9 @@ public:
     // 聚焦玩家
     void centerOnPlayer();
 
+    // 聚焦中心點
+    void centerOnAnchor();
+
 private:
     // 主要顯示
     QGraphicsView *view;
@@ -33,6 +37,7 @@ private:
     // 場景們
     TitleScene *titleScene = nullptr;
     LaboratoryScene *laboratoryScene = nullptr;
+    TownScene *townScene = nullptr;
 
     // 現在顯示的場景
     Scene *currentScene = nullptr;

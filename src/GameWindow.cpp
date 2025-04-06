@@ -26,10 +26,12 @@ GameWindow::GameWindow(QWidget *parent) : QMainWindow(parent) {
     // 創建場景
     titleScene = new TitleScene(this, resourceManager);
     laboratoryScene = new LaboratoryScene(this, resourceManager);
+    townScene = new TownScene(this, resourceManager);
 
     // 建立信號連結
     connect(titleScene, &TitleScene::switchScene, this, &GameWindow::switchScene);
     connect(laboratoryScene, &LaboratoryScene::switchScene, this, &GameWindow::switchScene);
+    connect(townScene, &TownScene::switchScene, this, &GameWindow::switchScene);
 
     // 切換場景
     switchScene(0);
@@ -55,6 +57,11 @@ void GameWindow::switchScene(int index) {
         QTimer::singleShot(0, this, &GameWindow::centerOnPlayer);
         setWindowTitle("[Laboratory] Pokémon RPG (Group 17, Introduction to Computer Science, 2025 Spring, NCKU EE)");
         break;
+    case 2:
+        currentScene = townScene;
+        QTimer::singleShot(0, this, &GameWindow::centerOnAnchor);
+        setWindowTitle("[Town] Pokémon RPG (Group 17, Introduction to Computer Science, 2025 Spring, NCKU EE)");
+        break;
     }
 
     view->setScene(currentScene);
@@ -66,5 +73,12 @@ void GameWindow::centerOnPlayer() {
         // 將 LaboratoryScene 轉型並獲取玩家位置
         LaboratoryScene *labScene = static_cast<LaboratoryScene*>(currentScene);
         view->centerOn(labScene->player); // 將視圖中心鎖定在玩家上
+    }
+}
+
+void GameWindow::centerOnAnchor(){
+    if (currentScene == townScene) {
+        TownScene *townScene = static_cast<TownScene*>(currentScene);
+        view->centerOn(townScene->anchorCenter); // 將視圖中心鎖定在玩家上
     }
 }

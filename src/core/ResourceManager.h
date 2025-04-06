@@ -14,6 +14,9 @@ public:
     QFont getFont(int size) const;
 
     // === 玩家資料 === //
+    // 上一個場景
+    QString getPreviousScene();
+    void setPreviousScene(QString target);
     // 和實驗室的大木博士交談次數
     int getTalkToLabNPCTimes();
     void addTalkToLabNPCTimes();
@@ -39,6 +42,8 @@ private:
     QFont defaultFont;
 
     // === 玩家資料 === //
+    // 上一個場景
+    QString previousScene = "TITLE";
     // 和實驗室的大木博士交談次數
     int talkToLabNPCTimes = 0;
     // 寶可夢球數量
