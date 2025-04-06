@@ -22,10 +22,13 @@ public:
     void addTalkToLabNPCTimes();
     // 寶可夢球數量
     int getPokeballCount();
+    void addPokeballCount(int count);
     // 傷藥數量
     int getPotionCount();
+    void addPotionCount(int count);
     // 復活數量
     int getEtherCount();
+    void addEtherCount(int count);
     // 是否有小火龍
     bool getCharmander();
     void toggleCharmander();

@@ -46,15 +46,24 @@ void ResourceManager::addTalkToLabNPCTimes() {
 int ResourceManager::getPokeballCount(){
     return pokeballCount;
 }
+void ResourceManager::addPokeballCount(int count){
+    pokeballCount += count;
+}
 
 // 傷藥數量
 int ResourceManager::getPotionCount(){
     return potionCount;
 }
+void ResourceManager::addPotionCount(int count){
+    potionCount += count;
+}
 
 // 復活數量
 int ResourceManager::getEtherCount(){
     return etherCount;
+}
+void ResourceManager::addEtherCount(int count){
+    etherCount += count;
 }
 
 // 是否有小火龍

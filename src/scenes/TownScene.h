@@ -10,6 +10,7 @@
 #include "src/core/Scene.h"
 #include "src/entities/Player.h"
 #include "src/entities/Barrier.h"
+#include "src/entities/TownBox.h"
 #include "src/ui/UIdialog.h"
 #include "src/ui/UIbag.h"
 
@@ -32,6 +33,7 @@ private:
     // --- 場景元素 --- //
     QGraphicsPixmapItem *bgItem;
     QList<Barrier*> barriers;
+    QList<TownBox*> townBoxes;
     UIbag *uiBag;
     UIdialog *uiDialog;
 
@@ -46,6 +48,7 @@ private:
     void move(int x, int y);
     bool barrierTest(int x, int y);
     bool showBulletinDialog(int x, int y);
+    bool boxTest(int x, int y);
 };
 
 #endif // TOWNSCENE_H

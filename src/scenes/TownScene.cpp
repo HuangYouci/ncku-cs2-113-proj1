@@ -1,3 +1,7 @@
+#include <QVector>
+#include <QRandomGenerator>
+#include <QPointF>
+
 #include "TownScene.h"
 #include "src/GameWindow.h"
 
@@ -47,7 +51,7 @@ void TownScene::keyPressEvent(QKeyEvent *event){
     case Qt::Key_B:
         qDebug() << "[TownScene] 已按下「B」";
         uiBag->showBag();
-        uiBag->setPos(playerX, playerY);
+        uiBag->setPos(anchorCenter->pos().x(), anchorCenter->pos().y());
         break;
     default:
         qDebug() << "[TownScene] 按下未知鍵:" << event->key();
@@ -103,6 +107,53 @@ void TownScene::setupScene(){
     barriers.append(new Barrier(1544, 1797, 246, 55)); // 可惡小柵欄（右）
     barriers.append(new Barrier(1542, 1474, 290, 225)); // 實驗室
 
+    // 箱子建立
+    QVector<QPointF> positions = {
+        QPointF(1100, 1130),
+        QPointF(1100, 1230),
+        QPointF(1100, 1330),
+        QPointF(1100, 1400),
+        QPointF(1100, 1530),
+        QPointF(1100, 1630),
+        QPointF(1100, 1730),
+        QPointF(1100, 1830),
+        QPointF(1200, 1130),
+        QPointF(1300, 1130),
+        QPointF(1450, 1130),
+        QPointF(1500, 1130),
+        QPointF(1600, 1130),
+        QPointF(1700, 1130),
+        QPointF(1800, 1130),
+        QPointF(1450, 1230),
+        QPointF(1450, 1330),
+        QPointF(1450, 1400),
+        QPointF(1450, 1530),
+        QPointF(1450, 1630),
+        QPointF(1450, 1730),
+        QPointF(1450, 1830),
+        QPointF(1850, 1130),
+        QPointF(1850, 1230),
+        QPointF(1850, 1330),
+        QPointF(1850, 1400),
+        QPointF(1850, 1530),
+        QPointF(1850, 1630),
+        QPointF(1850, 1730),
+        QPointF(1850, 1830),
+        QPointF(1200, 1460),
+        QPointF(1300, 1460),
+        QPointF(1700, 1400),
+        QPointF(1770, 1330)
+    };
+
+    for (int i = 0; i < 15; ++i) {
+        TownBox *townBox = new TownBox();
+        townBoxes.append(townBox);
+    }
+
+    for (TownBox *townBox : townBoxes) {
+        addItem(townBox);
+        townBox->setPos(positions[QRandomGenerator::global()->bounded(positions.size())]);
+    }
 
     for (Barrier *barrier : barriers){
         addItem(barrier);
@@ -118,6 +169,8 @@ void TownScene::setupScene(){
 void TownScene::move(int x, int y){
     int stepX = (x > 0 ) ? -1 : ((x<0) ? 1 : 0);
     int stepY = (y > 0 ) ? -1 : ((y<0) ? 1 : 0);
+
+    // 碰撞測試
 
     while(true) {
         if (!barrierTest(x, y)){
@@ -141,6 +194,10 @@ void TownScene::move(int x, int y){
     playerX += x;
     playerY += y;
 
+    // 箱子測試
+    boxTest(playerX, playerY); // (輸入玩家座標)
+
+    // 更改位置
     player->setPos(playerX, playerY);
 
     // 大場景特殊判定：要不要繼續至中？他要在一定情況下才符合 建立定位錨點
@@ -173,6 +230,58 @@ bool TownScene::barrierTest(int x, int y){
 
     }
 
+    return false;
+}
+
+bool TownScene::boxTest(int x, int y){
+    for (TownBox *townBox : townBoxes) {
+        QRectF playerFutureRect = player->boundingRect().translated(player->pos());
+        QRectF boxRect = townBox->boundingRect().translated(townBox->pos());
+        if (playerFutureRect.intersects(boxRect)){
+            qDebug() << "[TownScene] 碰到箱子";
+            townBox->setPos(500, 500);
+
+            // 獲得道具
+            QString boxMessage;
+            switch (QRandomGenerator::global()->bounded(0, 3)){
+            case 0:
+                switch (QRandomGenerator::global()->bounded(0, 3)){
+                case 0:
+                    resourceManager->addPokeballCount(1);
+                    boxMessage = "從箱子獲得 1 個寶可夢球！";
+                    break;
+                case 1:
+                    resourceManager->addPokeballCount(2);
+                    boxMessage = "從箱子獲得 1 個寶可夢球！";
+                    break;
+                case 2:
+                    resourceManager->addPokeballCount(3);
+                    boxMessage = "從箱子獲得 1 個寶可夢球！";
+                    break;
+                default:
+                    break;
+                }
+                break;
+            case 1:
+                resourceManager->addPotionCount(1);
+                boxMessage = "從箱子獲得 1 個傷藥！";
+                break;
+            case 2:
+                resourceManager->addEtherCount(1);
+                boxMessage = "從箱子獲得 1 個補藥！";
+                break;
+            default:
+                break;
+            }
+
+            dialogues.clear();
+            dialogues << boxMessage << "繼續冒險吧！";
+            uiDialog->setDialogues(dialogues);
+            uiDialog->setPos(anchorCenter->pos().x(), anchorCenter->pos().y());
+            uiDialog->showDialogue();
+            return true;
+        }
+    }
     return false;
 }
 

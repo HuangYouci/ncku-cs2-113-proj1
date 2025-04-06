@@ -13,6 +13,7 @@ SOURCES += \
     src/entities/Barrier.cpp \
     src/entities/NPC.cpp \
     src/entities/Player.cpp \
+    src/entities/TownBox.cpp \
     src/scenes/TitleScene.cpp \
     src/scenes/LaboratoryScene.cpp \
     src/core/ResourceManager.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     src/entities/Barrier.h \
     src/entities/NPC.h \
     src/entities/Player.h \
+    src/entities/TownBox.h \
     src/scenes/TitleScene.h \
     src/scenes/LaboratoryScene.h \
     src/core/ResourceManager.h \
