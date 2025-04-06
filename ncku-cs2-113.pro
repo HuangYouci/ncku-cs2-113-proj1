@@ -18,6 +18,7 @@ SOURCES += \
     src/core/ResourceManager.cpp \
     src/core/Scene.cpp \
     src/main.cpp \
+    src/ui/UIbag.cpp \
     src/ui/UIdialog.cpp
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
     src/scenes/LaboratoryScene.h \
     src/core/ResourceManager.h \
     src/core/Scene.h \
+    src/ui/UIbag.h \
     src/ui/UIdialog.h
 
 FORMS +=

@@ -17,6 +17,12 @@ public:
     // 和實驗室的大木博士交談次數
     int getTalkToLabNPCTimes();
     void addTalkToLabNPCTimes();
+    // 寶可夢球數量
+    int getPokeballCount();
+    // 傷藥數量
+    int getPotionCount();
+    // 復活數量
+    int getEtherCount();
 
 private:
     // === 系統資料 === //
@@ -26,6 +32,12 @@ private:
     // === 玩家資料 === //
     // 和實驗室的大木博士交談次數
     int talkToLabNPCTimes = 0;
+    // 寶可夢球數量
+    int pokeballCount = 0;
+    // 傷藥數量
+    int potionCount = 0;
+    // 復活數量
+    int etherCount = 0;
 
 };
 

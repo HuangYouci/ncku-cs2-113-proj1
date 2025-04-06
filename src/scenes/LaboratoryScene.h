@@ -12,6 +12,7 @@
 #include "src/entities/Barrier.h"
 #include "src/entities/NPC.h"
 #include "src/ui/UIdialog.h"
+#include "src/ui/UIbag.h"
 
 class LaboratoryScene : public Scene
 {
@@ -29,6 +30,7 @@ private:
     QGraphicsPixmapItem *bgItem;
     QList<Barrier*> barriers;
     UIdialog *uiDialog;
+    UIbag *uiBag;
     QGraphicsPixmapItem *pokeball01;
     QGraphicsPixmapItem *pokeball02;
     QGraphicsPixmapItem *pokeball03;

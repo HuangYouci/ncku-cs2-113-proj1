@@ -32,3 +32,18 @@ int ResourceManager::getTalkToLabNPCTimes() {
 void ResourceManager::addTalkToLabNPCTimes() {
     talkToLabNPCTimes++;
 }
+
+// 寶可夢球數量
+int ResourceManager::getPokeballCount(){
+    return pokeballCount;
+}
+
+// 傷藥數量
+int ResourceManager::getPotionCount(){
+    return potionCount;
+}
+
+// 復活數量
+int ResourceManager::getEtherCount(){
+    return etherCount;
+}

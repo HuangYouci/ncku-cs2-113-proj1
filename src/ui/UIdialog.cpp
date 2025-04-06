@@ -45,6 +45,7 @@ void UIdialog::showDialogue() {
 
 void UIdialog::hideDialogue(){
     setVisible(false);
+    ungrabKeyboard();
 }
 
 void UIdialog::keyPressEvent(QKeyEvent *event) {

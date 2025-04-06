@@ -8,8 +8,8 @@ LaboratoryScene::LaboratoryScene(QObject *parent, ResourceManager *resourceManag
 
 void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
 
-    if (uiDialog->isVisible()) {
-        QGraphicsScene::keyPressEvent(event); // Pass the event to the dialog
+    if (uiDialog->isVisible() || uiBag->isVisible()) {
+        QGraphicsScene::keyPressEvent(event); // Pass the event to UI
         return;
     }
 
@@ -35,7 +35,13 @@ void LaboratoryScene::keyPressEvent(QKeyEvent *event) {
             move(10, 0);
             break;
         case Qt::Key_A:
+            qDebug() << "[LaboratoryScene] 已按鍵「A」";
             showNPCdialog(playerX, playerY);
+            break;
+        case Qt::Key_B:
+            qDebug() << "[LaboratoryScene] 已按鍵「B」";
+            uiBag->showBag();
+            uiBag->setPos(playerX, playerY);
             break;
         default:
             qDebug() << "[LaboratoryScene] 按下未知鍵:" << event->key();
@@ -104,14 +110,19 @@ void LaboratoryScene::setupScene() {
     barriers.append(new Barrier(1000, 1438, 455, 1)); // 下邊界
     barriers.append(new Barrier(1210, 1100, 30, 40)); // 博士NPC
 
+    for (Barrier *barrier : barriers ) {
+        addItem(barrier);
+    }
+
     // 對話匡建立
     uiDialog = new UIdialog(resourceManager->getFont(25), QColor(Qt::black));
     addItem(uiDialog);
     uiDialog->hideDialogue();
 
-    for (Barrier *barrier : barriers ) {
-        addItem(barrier);
-    }
+    // 背包建立
+    uiBag = new UIbag(resourceManager);
+    addItem(uiBag);
+    uiBag->hideBag();
 
 }
 
