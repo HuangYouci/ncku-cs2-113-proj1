@@ -148,7 +148,7 @@ void LaboratoryScene::move(int x, int y) {
     while (true) {
         if (!barrierTest(x, y)) {
             // 找到可移動距離（從 10 逐漸變小）
-            qDebug() << "[LaboratoryScene] 碰撞測試成功（於" << x << "," << y << "）";
+            qDebug() << "[LaboratoryScene] 碰撞測試成功 (" << x << "," << y << "）";
             break;
         }
 
@@ -228,7 +228,7 @@ bool LaboratoryScene::showUIchoose(int x, int y){
     if ( ( x > 1240 ) && ( x < 1390 ) && ( y > 1085 ) && ( y < 1190 ) ){
         qDebug() << "[LaboratoryScene] 觸發選擇寶可夢！";
 
-        if (resourceManager->getCharmander() || resourceManager->getBulbasaur() || resourceManager->getSquirtle()){
+        if (resourceManager->getReceivedInitPokemon()){
             // 已經取得過
             dialogues.clear();
             dialogues << "你已經取得過初始寶可夢了！\n不可以再次獲得。" << "趕快出去冒險吧！";

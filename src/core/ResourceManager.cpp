@@ -42,6 +42,14 @@ void ResourceManager::addTalkToLabNPCTimes() {
     talkToLabNPCTimes++;
 }
 
+// 是否有拿到初始寶可夢
+bool ResourceManager::getReceivedInitPokemon(){
+    return receivedInitPokemon;
+}
+void ResourceManager::playerReceivedInitPokemon(){
+    receivedInitPokemon = true;
+}
+
 // 寶可夢球數量
 int ResourceManager::getPokeballCount(){
     return pokeballCount;
@@ -64,44 +72,4 @@ int ResourceManager::getEtherCount(){
 }
 void ResourceManager::addEtherCount(int count){
     etherCount += count;
-}
-
-// 是否有小火龍
-bool ResourceManager::getCharmander(){
-    return charmander;
-}
-
-void ResourceManager::toggleCharmander(){
-    if (charmander){
-        qDebug() << "[ResourceManager] 觸發小火龍更新，更新為：沒有";
-        charmander = false;
-    } else {
-        qDebug() << "[ResourceManager] 觸發小火龍更新，更新為：有";
-        charmander = true;
-    }
-}
-
-// 是否有妙哇種子
-bool ResourceManager::getBulbasaur(){
-    return bulbasaur;
-}
-void ResourceManager::toggleBulbasaur(){
-    if (bulbasaur){
-        bulbasaur = false;
-    } else {
-        bulbasaur = true;
-    }
-}
-
-// 是否有水箭龜
-bool ResourceManager::getSquirtle(){
-    return squirtle;
-}
-
-void ResourceManager::toggleSquirtle(){
-    if (squirtle){
-        squirtle = false;
-    } else {
-        squirtle = true;
-    }
 }

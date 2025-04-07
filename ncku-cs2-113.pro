@@ -1,4 +1,6 @@
-QT       += core gui
+QT       += \
+    core gui \
+    multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,9 +13,14 @@ CONFIG += c++11
 SOURCES += \
     src/GameWindow.cpp \
     src/entities/Barrier.cpp \
+    src/entities/Ledge.cpp \
     src/entities/NPC.cpp \
     src/entities/Player.cpp \
+    src/entities/Tallgrass.cpp \
     src/entities/TownBox.cpp \
+    src/scenes/BattleScene.cpp \
+    src/scenes/GameOver.cpp \
+    src/scenes/GrasslandScene.cpp \
     src/scenes/TitleScene.cpp \
     src/scenes/LaboratoryScene.cpp \
     src/core/ResourceManager.cpp \
@@ -22,14 +29,20 @@ SOURCES += \
     src/scenes/TownScene.cpp \
     src/ui/UIbag.cpp \
     src/ui/UIchoose.cpp \
-    src/ui/UIdialog.cpp
+    src/ui/UIdialog.cpp \
+    src/util/ClickableTextItem.cpp
 
 HEADERS += \
     src/GameWindow.h \
     src/entities/Barrier.h \
+    src/entities/Ledge.h \
     src/entities/NPC.h \
     src/entities/Player.h \
+    src/entities/Tallgrass.h \
     src/entities/TownBox.h \
+    src/scenes/BattleScene.h \
+    src/scenes/GameOver.h \
+    src/scenes/GrasslandScene.h \
     src/scenes/TitleScene.h \
     src/scenes/LaboratoryScene.h \
     src/core/ResourceManager.h \
@@ -37,7 +50,8 @@ HEADERS += \
     src/scenes/TownScene.h \
     src/ui/UIbag.h \
     src/ui/UIchoose.h \
-    src/ui/UIdialog.h
+    src/ui/UIdialog.h \
+    src/util/ClickableTextItem.h
 
 FORMS +=
 

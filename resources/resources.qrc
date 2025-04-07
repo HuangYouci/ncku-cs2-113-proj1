@@ -47,5 +47,14 @@
         <file>images/other/item_bag_background.png</file>
         <file>images/other/bag.png</file>
         <file>fonts/unifont.ttf</file>
+        <file>sounds/caught.wav</file>
+        <file>sounds/enemyHurt.wav</file>
+        <file>sounds/battleEscape.wav</file>
+        <file>sounds/getXP.wav</file>
+        <file>sounds/battleWin.wav</file>
+        <file>sounds/startBattle.wav</file>
+        <file>sounds/battleHit.wav</file>
+        <file>sounds/battleLost.wav</file>
+        <file>sounds/buttonSound.wav</file>
     </qresource>
 </RCC>

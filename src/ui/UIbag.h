@@ -6,6 +6,7 @@
 #include <QGraphicsTextItem>
 #include <QKeyEvent>
 #include <QGraphicsTextItem>
+#include <QList>
 
 #include "src/core/ResourceManager.h"
 
@@ -26,22 +27,9 @@ protected:
 private:
     ResourceManager *resourceManager;
 
-    QGraphicsTextItem *titleText;
-    QGraphicsTextItem *pokeballText;
-    QGraphicsTextItem *potionText;
-    QGraphicsTextItem *etherText;
-    QGraphicsPixmapItem *background01;
-    QGraphicsPixmapItem *background02;
-    QGraphicsPixmapItem *pokeballBag;
-    QGraphicsPixmapItem *potionBag;
-    QGraphicsPixmapItem *etherBag;
-
-    QGraphicsPixmapItem *charmanderBag;
-    QGraphicsPixmapItem *bulbasaurBag;
-    QGraphicsPixmapItem *squirtleBag;
-    QGraphicsTextItem *charmanderText;
-    QGraphicsTextItem *bulbasaurText;
-    QGraphicsTextItem *squirtleText;
+    QList<QGraphicsPixmapItem*> pokemonsImage;
+    QList<QGraphicsTextItem*> pokemonsText;
+    QList<QGraphicsRectItem*> pokemonsBackground;
 
     void updateItem();
 };

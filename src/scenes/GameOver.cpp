@@ -1,42 +1,45 @@
-#include "src/scenes/TitleScene.h"
+#include "GameOver.h"
 
 #include <QGraphicsTextItem>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
 
-TitleScene::TitleScene(QObject *parent, ResourceManager *resourceManager) : Scene(parent, resourceManager) {
-    qDebug() << "[TitleScene] 已被建構";
+GameOver::GameOver(QObject *parent, ResourceManager *resourceManager) : Scene(parent, resourceManager) {
+    qDebug() << "[GameOver] 已被建構";
     setupScene();
 }
 
-void TitleScene::keyPressEvent(QKeyEvent *event){
+void GameOver::keyPressEvent(QKeyEvent *event){
     switch (event->key()){
+    case Qt::Key_Q:
+        qDebug() << "[GameOver] 已按下「Q」";
+        switchScene(0);
+        break;
     default:
         qDebug() << "[TitleScene] 任意鍵已被按下";
-        switchScene(1); // GO LAB
         break;
     }
 }
 
-void TitleScene::setupScene() {
+void GameOver::setupScene() {
     // 建立背景圖片
-    QGraphicsPixmapItem *bgItem = new QGraphicsPixmapItem(QPixmap(":/images/scene/start_menu.png").scaled(525, 450, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    QGraphicsPixmapItem *bgItem = new QGraphicsPixmapItem(QPixmap(":/images/scene/game_over.png").scaled(525, 450, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     addItem(bgItem);
-    qDebug() << "[TitleScene] 背景圖片已載入";
+    qDebug() << "[GameOver] 背景圖片已載入";
 
     // 建立文字
-    QGraphicsTextItem *welcomeText = new QGraphicsTextItem();
-    welcomeText->setPlainText("點擊任意鍵以開始");
-    welcomeText->setPos(50, 350);
-    welcomeText->setFont(resourceManager->getFont(25));
-    welcomeText->setDefaultTextColor(QColor(Qt::white));
-    addItem(welcomeText);
-    qDebug() << "[TitleScene] 文字已建立";
+    QGraphicsTextItem *overText = new QGraphicsTextItem();
+    overText->setPlainText("按下「Q」以重新開始");
+    overText->setPos(50, 350);
+    overText->setFont(resourceManager->getFont(25));
+    overText->setDefaultTextColor(QColor(Qt::white));
+    addItem(overText);
+    qDebug() << "[GameOver] 文字已建立";
 
     // 建立動畫
     QGraphicsOpacityEffect *opacity = new QGraphicsOpacityEffect();
-    welcomeText->setGraphicsEffect(opacity);
+    overText->setGraphicsEffect(opacity);
     QPropertyAnimation *animationForward = new QPropertyAnimation(opacity, "opacity");
     QPropertyAnimation *animationBackward = new QPropertyAnimation(opacity, "opacity");
     animationForward->setDuration(1500);

@@ -1,5 +1,5 @@
-#ifndef TOWNSCENE_H
-#define TOWNSCENE_H
+#ifndef GRASSLANDSCENE_H
+#define GRASSLANDSCENE_H
 
 #include <QGraphicsScene>
 #include <QKeyEvent>
@@ -10,18 +10,19 @@
 #include "src/core/Scene.h"
 #include "src/entities/Player.h"
 #include "src/entities/Barrier.h"
-#include "src/entities/TownBox.h"
+#include "src/entities/Ledge.h"
+#include "src/entities/Tallgrass.h"
 #include "src/ui/UIdialog.h"
 #include "src/ui/UIbag.h"
 
-class TownScene : public Scene
+class GrasslandScene : public Scene
 {
 Q_OBJECT
 
 public:
     Player *player;
     QGraphicsPixmapItem *anchorCenter;
-    TownScene(QObject *parent = nullptr, ResourceManager *resourceManager = nullptr);
+    GrasslandScene(QObject *parent = nullptr, ResourceManager *resourceManager = nullptr);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -33,7 +34,8 @@ private:
     // --- 場景元素 --- //
     QGraphicsPixmapItem *bgItem;
     QList<Barrier*> barriers;
-    QList<TownBox*> townBoxes;
+    QList<Ledge*> ledges;
+    QList<Tallgrass*> tallgrasses;
     UIbag *uiBag;
     UIdialog *uiDialog;
 
@@ -47,8 +49,8 @@ private:
     void setupScene();
     void move(int x, int y);
     bool barrierTest(int x, int y);
+    bool ledgeTest(int x, int y);
     bool showBulletinDialog(int x, int y);
-    bool boxTest();
 };
 
-#endif // TOWNSCENE_H
+#endif // GRASSLANDSCENE_H

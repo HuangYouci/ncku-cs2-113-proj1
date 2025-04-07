@@ -66,6 +66,8 @@ void UIchoose::hide(){
 void UIchoose::keyPressEvent(QKeyEvent *event) {
     qDebug() << "[UIchoose] Key pressed:" << event->key();
     if (event->key() == Qt::Key_A) {
+        Pokemon tempPokemon;
+        PokemonAttack tempAttack;
         switch (currentPK){
         case 0:
             qDebug() << "[UIchoose] 選擇「0」離開";
@@ -73,17 +75,56 @@ void UIchoose::keyPressEvent(QKeyEvent *event) {
             break;
         case 1:
             qDebug() << "[UIchoose] 選擇「1」獲得小火龍";
-            resourceManager->toggleCharmander();
+            tempPokemon.name = "小火龍";
+            tempPokemon.image = QPixmap(":/images/battle/charmander.png");
+            tempPokemon.imageback = QPixmap(":/images/battle/charmander_back.png");
+            tempPokemon.level = 1;
+            tempPokemon.attack = 5;
+            tempPokemon.defense = 5;
+            tempPokemon.maxhp = 30;
+            tempPokemon.hp = 30;
+            tempPokemon.pp = 20;
+            tempAttack.name = "抓抓";
+            tempAttack.power = 10;
+            tempPokemon.attacks.append(tempAttack);
+            resourceManager->pokemons.append(tempPokemon);
+            resourceManager->playerReceivedInitPokemon();
             hide();
             break;
         case 2:
-            qDebug() << "[UIchoose] 選擇「2」獲得水箭龜";
-            resourceManager->toggleSquirtle();
+            qDebug() << "[UIchoose] 選擇「2」獲得傑尼龜";
+            tempPokemon.name = "傑尼龜";
+            tempPokemon.image = QPixmap(":/images/battle/squirtle.png");
+            tempPokemon.imageback = QPixmap(":/images/battle/squirtle.png");
+            tempPokemon.level = 1;
+            tempPokemon.attack = 5;
+            tempPokemon.defense = 5;
+            tempPokemon.maxhp = 30;
+            tempPokemon.hp = 30;
+            tempPokemon.pp = 20;
+            tempAttack.name = "戳戳";
+            tempAttack.power = 10;
+            tempPokemon.attacks.append(tempAttack);
+            resourceManager->pokemons.append(tempPokemon);
+            resourceManager->playerReceivedInitPokemon();
             hide();
             break;
         case 3:
             qDebug() << "[UIchoose] 選擇「3」獲得妙蛙種子";
-            resourceManager->toggleBulbasaur();
+            tempPokemon.name = "妙蛙種子";
+            tempPokemon.image = QPixmap(":/images/battle/bulbasaur.png");
+            tempPokemon.imageback = QPixmap(":/images/battle/bulbasaur.png");
+            tempPokemon.level = 1;
+            tempPokemon.attack = 5;
+            tempPokemon.defense = 5;
+            tempPokemon.maxhp = 30;
+            tempPokemon.hp = 30;
+            tempPokemon.pp = 20;
+            tempAttack.name = "戳戳";
+            tempAttack.power = 10;
+            tempPokemon.attacks.append(tempAttack);
+            resourceManager->pokemons.append(tempPokemon);
+            resourceManager->playerReceivedInitPokemon();
             hide();
             break;
         default:
@@ -106,7 +147,7 @@ void UIchoose::keyPressEvent(QKeyEvent *event) {
             pk2->show();
             pk3->hide();
             pk4->hide();
-            chooseText->setPlainText("水箭龜");
+            chooseText->setPlainText("傑尼龜");
             currentPK = 2;
             break;
         case 2:

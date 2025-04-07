@@ -27,11 +27,17 @@ GameWindow::GameWindow(QWidget *parent) : QMainWindow(parent) {
     titleScene = new TitleScene(this, resourceManager);
     laboratoryScene = new LaboratoryScene(this, resourceManager);
     townScene = new TownScene(this, resourceManager);
+    grasslandScene = new GrasslandScene(this, resourceManager);
+    battleScene = new BattleScene(this, resourceManager);
+    gameOver = new GameOver(this, resourceManager);
 
     // 建立信號連結
     connect(titleScene, &TitleScene::switchScene, this, &GameWindow::switchScene);
     connect(laboratoryScene, &LaboratoryScene::switchScene, this, &GameWindow::switchScene);
     connect(townScene, &TownScene::switchScene, this, &GameWindow::switchScene);
+    connect(grasslandScene, &GrasslandScene::switchScene, this, &GameWindow::switchScene);
+    connect(battleScene, &BattleScene::switchScene, this, &GameWindow::switchScene);
+    connect(gameOver, &GameOver::switchScene, this, &GameWindow::switchScene);
 
     // 切換場景
     switchScene(0);
@@ -62,6 +68,20 @@ void GameWindow::switchScene(int index) {
         QTimer::singleShot(0, this, &GameWindow::centerOnAnchor);
         setWindowTitle("[Town] Pokémon RPG (Group 17, Introduction to Computer Science, 2025 Spring, NCKU EE)");
         break;
+    case 3:
+        currentScene = grasslandScene;
+        QTimer::singleShot(0, this, &GameWindow::centerOnAnchor);
+        setWindowTitle("[Grassland] Pokémon RPG (Group 17, Introduction to Computer Science, 2025 Spring, NCKU EE)");
+        break;
+    case 4:
+        currentScene = battleScene;
+        battleScene->start();
+        setWindowTitle("[Battle] Pokémon RPG (Group 17, Introduction to Computer Science, 2025 Spring, NCKU EE)");
+        break;
+    case 5:
+        currentScene = gameOver;
+        setWindowTitle("[GameOver] Pokémon RPG (Group 17, Introduction to Computer Science, 2025 Spring, NCKU EE)");
+        break;
     }
 
     view->setScene(currentScene);
@@ -79,6 +99,10 @@ void GameWindow::centerOnPlayer() {
 void GameWindow::centerOnAnchor(){
     if (currentScene == townScene) {
         TownScene *townScene = static_cast<TownScene*>(currentScene);
-        view->centerOn(townScene->anchorCenter); // 將視圖中心鎖定在玩家上
+        view->centerOn(townScene->anchorCenter);
+    }
+    if (currentScene == grasslandScene) {
+        GrasslandScene *grasslandScene = static_cast<GrasslandScene*>(currentScene);
+        view->centerOn(grasslandScene->anchorCenter);
     }
 }

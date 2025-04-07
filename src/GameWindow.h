@@ -8,6 +8,9 @@
 #include "src/scenes/TitleScene.h"
 #include "src/scenes/LaboratoryScene.h"
 #include "src/scenes/TownScene.h"
+#include "src/scenes/GrasslandScene.h"
+#include "src/scenes/BattleScene.h"
+#include "src/scenes/GameOver.h"
 
 // 管理資料 //
 #include "src/core/ResourceManager.h"
@@ -38,6 +41,9 @@ private:
     TitleScene *titleScene = nullptr;
     LaboratoryScene *laboratoryScene = nullptr;
     TownScene *townScene = nullptr;
+    GrasslandScene *grasslandScene = nullptr;
+    BattleScene *battleScene = nullptr;
+    GameOver *gameOver = nullptr;
 
     // 現在顯示的場景
     Scene *currentScene = nullptr;
