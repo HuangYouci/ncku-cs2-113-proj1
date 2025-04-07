@@ -664,12 +664,27 @@ void BattleScene::iLost(){
     sound->setSource(QUrl::fromLocalFile(":/sounds/battleLost.wav"));
     sound->play();
 
-    textDescription->setPlainText(QString("你輸了!\n%1被%2打敗\n菜就多練").arg(resourceManager->pokemons[myPokemonIndex].name).arg(enemy.name));
-    optionA->show();
-    optionA->setPlainText("離開");
-    optionA->onClick = [=](){
-        switchScene(5);
-    };
+
+    int totalHp = 0;
+    for (Pokemon &item : resourceManager->pokemons){
+        totalHp += item.hp;
+    }
+
+    if (totalHp <= 0 ){
+        textDescription->setPlainText(QString("遊戲結束!!\n%1被%2打敗\n所有神奇寶貝都死了").arg(resourceManager->pokemons[myPokemonIndex].name).arg(enemy.name));
+        optionA->show();
+        optionA->setPlainText("遊戲結束");
+        optionA->onClick = [=](){
+            switchScene(5);
+        };
+    } else {
+        textDescription->setPlainText(QString("你輸了!\n%1被%2打敗\n菜就多練~繼續加油!").arg(resourceManager->pokemons[myPokemonIndex].name).arg(enemy.name));
+        optionA->show();
+        optionA->setPlainText("離開");
+        optionA->onClick = [=](){
+            switchScene(3);
+        };
+    }
 }
 
 QString BattleScene::iWonLevelup(){
