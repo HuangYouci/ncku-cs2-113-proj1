@@ -95,7 +95,7 @@ void UIchoose::keyPressEvent(QKeyEvent *event) {
             qDebug() << "[UIchoose] 選擇「2」獲得傑尼龜";
             tempPokemon.name = "傑尼龜";
             tempPokemon.image = QPixmap(":/images/battle/squirtle.png");
-            tempPokemon.imageback = QPixmap(":/images/battle/squirtle.png");
+            tempPokemon.imageback = QPixmap(":/images/battle/squirtle_back.png");
             tempPokemon.level = 1;
             tempPokemon.attack = 5;
             tempPokemon.defense = 5;
@@ -113,7 +113,7 @@ void UIchoose::keyPressEvent(QKeyEvent *event) {
             qDebug() << "[UIchoose] 選擇「3」獲得妙蛙種子";
             tempPokemon.name = "妙蛙種子";
             tempPokemon.image = QPixmap(":/images/battle/bulbasaur.png");
-            tempPokemon.imageback = QPixmap(":/images/battle/bulbasaur.png");
+            tempPokemon.imageback = QPixmap(":/images/battle/bulbasaur_back.png");
             tempPokemon.level = 1;
             tempPokemon.attack = 5;
             tempPokemon.defense = 5;
