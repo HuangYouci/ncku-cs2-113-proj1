@@ -32,6 +32,7 @@ private:
     QList<QGraphicsRectItem*> pokemonsBackground;
 
     void updateItem();
+    QString tellType(int type);
 };
 
 #endif // UIBAG_H

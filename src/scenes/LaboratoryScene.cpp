@@ -1,5 +1,6 @@
 #include "LaboratoryScene.h"
 #include "src/GameWindow.h"
+#include <QRandomGenerator>
 
 LaboratoryScene::LaboratoryScene(QObject *parent, ResourceManager *resourceManager) : Scene(parent, resourceManager) {
     qDebug() << "[LaboratoryScene] 實驗室場景已構建";
@@ -88,6 +89,9 @@ void LaboratoryScene::setupScene() {
     addItem(npc);
     npc->setPos(1210,1100);
     qDebug() << "[LaboratoryScene] NPC 已載入";
+    npcMoveTimer = new QTimer(this);
+    connect(npcMoveTimer, &QTimer::timeout, this, &LaboratoryScene::npcRandomMove);
+    npcMoveTimer->start(1000); // 每秒移動一次
 
     // 三個寶貝球
     QPixmap pokeball(":/images/other/ball.png");
@@ -117,7 +121,7 @@ void LaboratoryScene::setupScene() {
     barriers.append(new Barrier(1000, 1000, 1, 438)); // 左邊界
     barriers.append(new Barrier(1455, 1000, 1, 438)); // 右邊界
     barriers.append(new Barrier(1000, 1438, 455, 1)); // 下邊界
-    barriers.append(new Barrier(1210, 1100, 30, 40)); // 博士NPC
+//    barriers.append(new Barrier(1210, 1100, 30, 40)); // 博士NPC
 
     for (Barrier *barrier : barriers ) {
         addItem(barrier);
@@ -192,6 +196,14 @@ bool LaboratoryScene::barrierTest(int x, int y) {
 
     }
 
+    // 測試 NPC 的碰撞
+    QRectF playerFutureRect = player->boundingRect().translated(player->pos() + QPointF(x, y));
+    QRectF npcRect = npc->boundingRect().translated(npc->pos());
+    if (playerFutureRect.intersects(npcRect)) {
+        qDebug() << "[LaboratoryScene] 撞到 NPC";
+        return true; // 沒通過
+    }
+
     return false;
 }
 
@@ -245,4 +257,32 @@ bool LaboratoryScene::showUIchoose(int x, int y){
 
     }
     return false;
+}
+
+void LaboratoryScene::npcRandomMove() {
+    static const QVector<QPoint> directions = {
+        QPoint(0, -10),  // 上
+        QPoint(0, 10),   // 下
+        QPoint(-10, 0),  // 左
+        QPoint(10, 0)    // 右
+    };
+
+    int index = QRandomGenerator::global()->bounded(directions.size());
+    int dx = directions[index].x();
+    int dy = directions[index].y();
+
+    // 碰撞偵測（不讓 NPC 走進障礙物）
+    QRectF futureRect = npc->boundingRect().translated(npc->pos() + QPointF(dx, dy));
+
+    for (Barrier *barrier : barriers) {
+        QRectF barrierRect = barrier->boundingRect().translated(barrier->pos());
+        if (futureRect.intersects(barrierRect)) return;
+    }
+
+    // 檢查是否會撞到玩家
+    QRectF playerRect = player->boundingRect().translated(player->pos());
+    if (futureRect.intersects(playerRect)) return;
+
+    // 移動 NPC
+    npc->moveBy(dx, dy);
 }

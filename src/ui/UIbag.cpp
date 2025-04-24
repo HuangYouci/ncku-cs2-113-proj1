@@ -169,10 +169,30 @@ void UIbag::updateItem() {
         pokemonsImage.append(pokemonImage);
 
         QGraphicsTextItem *pokemonText = new QGraphicsTextItem(this);
-        pokemonText->setPlainText(QString("%1 (Lv.%2, HP:%3/%4)").arg(pokemon.name).arg(pokemon.level).arg(pokemon.hp).arg(pokemon.maxhp));
+        pokemonText->setPlainText(QString("%1").arg(pokemon.name));
         pokemonText->setPos(-210, -197 + itemCount * 37);
         pokemonText->setFont(resourceManager->getFont(15));
         pokemonText->setDefaultTextColor(QColor(Qt::black));
         pokemonsText.append(pokemonText);
+
+        QGraphicsTextItem *pokemonText2 = new QGraphicsTextItem(this);
+        pokemonText2->setPlainText(QString("Lv.%1  HP:%2/%3  %4屬性").arg(pokemon.level).arg(pokemon.hp).arg(pokemon.maxhp).arg(tellType(pokemon.type)));
+        pokemonText2->setPos(-210, -180 + itemCount * 37);
+        pokemonText2->setFont(resourceManager->getFont(10));
+        pokemonText2->setDefaultTextColor(QColor(Qt::black));
+        pokemonsText.append(pokemonText2);
+    }
+}
+
+QString UIbag::tellType(int type){
+    switch (type){
+    case 1:
+        return "火";
+    case 2:
+        return "水";
+    case 3:
+        return "草";
+    default:
+        return "一般";
     }
 }

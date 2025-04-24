@@ -14,6 +14,7 @@ void GameOver::keyPressEvent(QKeyEvent *event){
     switch (event->key()){
     case Qt::Key_Q:
         qDebug() << "[GameOver] 已按下「Q」";
+        resourceManager->pokemons.clear();
         switchScene(0);
         break;
     default:

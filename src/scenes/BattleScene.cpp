@@ -280,6 +280,9 @@ Pokemon BattleScene::generateRandomEnemy(){
     t1.level = 1;
     t2.level = 1;
     t3.level = 1;
+    t1.type = 1;
+    t2.type = 2;
+    t3.type = 3;
     PokemonAttack at1;
     at1.name = "抓抓";
     at1.power = 10;
@@ -407,7 +410,38 @@ void BattleScene::myroundFightUse(int methodIndex){
 
     // pp在選擇時就會計算
     // 計算傷害：(power+attack-enemy defense)*level
+    // 老師要求的一般傷害
     int damage = (resourceManager->pokemons[myPokemonIndex].attacks[methodIndex].power + resourceManager->pokemons[myPokemonIndex].attack - enemy.defense) * resourceManager->pokemons[myPokemonIndex].level;
+
+    // 屬性相剋傷害
+    // 1火 2水 3草
+    // 火->水 不佳/ 火->草 絕佳
+    // 水->火 絕佳/ 水->草 一般
+    // 草->火 不佳/ 草->水 一般
+    // 一般 +0%, 不佳 -20%, 絕佳: +20%
+    double bonusDamage = 1;
+    switch(resourceManager->pokemons[myPokemonIndex].type){
+    case 1: // 火
+        switch(enemy.type){
+        case 2:
+            bonusDamage = 0.8;
+        case 3:
+            bonusDamage = 1.2;
+        }
+    case 2: // 水
+        switch(enemy.type){
+        case 1:
+            bonusDamage = 1.2;
+        }
+    case 3: // 草
+        switch(enemy.type){
+        case 1:
+            bonusDamage = 0.8;
+        }
+    }
+    damage = int(double(damage)*bonusDamage);
+
+    // 進行扣除
     enemy.hp -= damage;
     if (enemy.hp < 0) { enemy.hp = 0 ;}
 
@@ -593,6 +627,35 @@ void BattleScene::enemyround(){
     if(enemy.pp > 0 ){
         // 使用招數（目前都是「抓抓」）
         int damage = (enemy.attacks[0].power + enemy.attack - resourceManager->pokemons[myPokemonIndex].defense) * 1;
+
+        // 屬性相剋傷害
+        // 1火 2水 3草
+        // 火->水 不佳/ 火->草 絕佳
+        // 水->火 絕佳/ 水->草 一般
+        // 草->火 不佳/ 草->水 一般
+        // 一般 +0%, 不佳 -20%, 絕佳: +20%
+        double bonusDamage = 1;
+        switch(enemy.type){
+        case 1: // 火
+            switch(resourceManager->pokemons[myPokemonIndex].type){
+            case 2:
+                bonusDamage = 0.8;
+            case 3:
+                bonusDamage = 1.2;
+            }
+        case 2: // 水
+            switch(resourceManager->pokemons[myPokemonIndex].type){
+            case 1:
+                bonusDamage = 1.2;
+            }
+        case 3: // 草
+            switch(resourceManager->pokemons[myPokemonIndex].type){
+            case 1:
+                bonusDamage = 0.8;
+            }
+        }
+        damage = int(double(damage)*bonusDamage);
+
         resourceManager->pokemons[myPokemonIndex].hp -= damage;
         if (resourceManager->pokemons[myPokemonIndex].hp < 0) { resourceManager->pokemons[myPokemonIndex].hp = 0 ;}
 

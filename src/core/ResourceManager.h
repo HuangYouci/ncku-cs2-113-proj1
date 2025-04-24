@@ -22,6 +22,7 @@ struct Pokemon {
     int hp;
     int pp;
     QList<PokemonAttack> attacks;
+    int type = 0; // 0 = NORMAL
 };
 
 class ResourceManager

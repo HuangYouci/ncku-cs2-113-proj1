@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QList>
 #include <QStringList>
+#include <QTimer>
 
 #include "src/core/Scene.h"
 #include "src/entities/Player.h"
@@ -41,7 +42,7 @@ private:
     QGraphicsPixmapItem *pokeball01;
     QGraphicsPixmapItem *pokeball02;
     QGraphicsPixmapItem *pokeball03;
-
+    QTimer *npcMoveTimer;
 
     // --- 暫存數值 --- //
     int playerX;
@@ -55,6 +56,8 @@ private:
     bool barrierTest(int x, int y); // 檢查屏障
     bool showNPCdialog(int x, int y); // 觸發對話
     bool showUIchoose(int x, int y); // 觸發選擇寶可夢
+    void npcRandomMove();
+
 };
 
 #endif // LABORATORYSCENE_H

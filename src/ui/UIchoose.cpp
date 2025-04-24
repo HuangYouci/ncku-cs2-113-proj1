@@ -84,6 +84,7 @@ void UIchoose::keyPressEvent(QKeyEvent *event) {
             tempPokemon.maxhp = 30;
             tempPokemon.hp = 30;
             tempPokemon.pp = 20;
+            tempPokemon.type = 1; // 1 FIRE
             tempAttack.name = "抓抓";
             tempAttack.power = 10;
             tempPokemon.attacks.append(tempAttack);
@@ -102,6 +103,7 @@ void UIchoose::keyPressEvent(QKeyEvent *event) {
             tempPokemon.maxhp = 30;
             tempPokemon.hp = 30;
             tempPokemon.pp = 20;
+            tempPokemon.type = 2; // 2 WATER
             tempAttack.name = "戳戳";
             tempAttack.power = 10;
             tempPokemon.attacks.append(tempAttack);
@@ -120,6 +122,7 @@ void UIchoose::keyPressEvent(QKeyEvent *event) {
             tempPokemon.maxhp = 30;
             tempPokemon.hp = 30;
             tempPokemon.pp = 20;
+            tempPokemon.type = 3; // 3 GRASS
             tempAttack.name = "戳戳";
             tempAttack.power = 10;
             tempPokemon.attacks.append(tempAttack);
