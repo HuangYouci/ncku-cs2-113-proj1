@@ -73,3 +73,13 @@ int ResourceManager::getEtherCount(){
 void ResourceManager::addEtherCount(int count){
     etherCount += count;
 }
+
+// 重置
+void ResourceManager::resetData(){
+    etherCount = 0;
+    potionCount = 0;
+    pokeballCount = 0;
+    pokemons.clear();
+    talkToLabNPCTimes = 0;
+    receivedInitPokemon = false;
+}

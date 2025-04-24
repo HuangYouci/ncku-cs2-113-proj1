@@ -56,6 +56,8 @@ public:
     void addEtherCount(int count);
     // 寶可夢列表
     QList<Pokemon> pokemons;
+    // 重置
+    void resetData();
 
 private:
     // === 系統資料 === //

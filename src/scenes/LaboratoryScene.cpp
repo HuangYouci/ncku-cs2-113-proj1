@@ -91,7 +91,6 @@ void LaboratoryScene::setupScene() {
     qDebug() << "[LaboratoryScene] NPC 已載入";
     npcMoveTimer = new QTimer(this);
     connect(npcMoveTimer, &QTimer::timeout, this, &LaboratoryScene::npcRandomMove);
-    npcMoveTimer->start(1000); // 每秒移動一次
 
     // 三個寶貝球
     QPixmap pokeball(":/images/other/ball.png");
@@ -223,6 +222,7 @@ bool LaboratoryScene::showNPCdialog(int x, int y){
             dialogues << "你還有什麼問題嗎？" << "趕快去進行你的冒險。";
         } else {
             dialogues << "我是大木博士，歡迎來到我的實驗室！" << "你可以在實驗室選擇三個寶可夢球中\n的一個作為你的初始寶可夢。";
+            npcMoveTimer->start(1000); // 每秒移動一次 博士開始走
         }
 
         uiDialog->setDialogues(dialogues);
