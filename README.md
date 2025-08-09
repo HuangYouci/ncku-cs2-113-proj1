@@ -1,4 +1,4 @@
-# National Cheng Kung University, Computer Science II, 2025 Spring, Project 1
+# 國立成功大學 114-1 學期計算機概論（二）專題一
 
 ## 專案簡介
 
@@ -131,3 +131,141 @@ ncku-cs2-113-proj1-main/
 *   **開啟/關閉背包:** B 鍵
 *   **進入戰鬥:** P 鍵 (在草地情境中可用，測試用)
 *   **重新開始:** Q 鍵 (於遊戲結束畫面可用)
+
+---
+
+# National Cheng Kung University, Introduction to Computer Science II, 2025 Spring, Project 1
+
+## Project Overview
+
+This is a 2D RPG game developed using C++ and the Qt framework, inspired by the classic "Pokémon" series. This project is the first assignment for the "Introduction to Computer Science II" course at National Cheng Kung University (NCKU) in the 2025 spring semester. The game features basic character movement, scene switching, NPC interactions, an item system, and a turn-based battle system.
+
+## Developing Environment
+
+* **Language:** C++11  
+* **Framework:** Qt (Version: Qt 5)  
+  * **Modules:** QtCore, QtGui, QtWidgets, QtMultimedia  
+* **Environment:** Qt Creator
+
+## Game Features
+
+* **Multi-scene Design:** Includes title screen, laboratory, town, grassy area, battle screen, and game over screen, with implemented scene switching logic.  
+* **Player Character:**  
+  * Can move up, down, left, and right on the map.  
+  * Has movement animations (showing different sprites based on direction).  
+  * Performs collision detection with environmental objects.  
+* **Map and Entities:**  
+  * **Barrier:** Impassable areas.  
+  * **Ledge:** Special terrain that can only be jumped over in one direction (usually downward).  
+  * **Tallgrass:** Entering may trigger random battles with a certain probability.  
+  * **NPC:** Present on the map; some NPCs are interactive (e.g., Professor Oak in the laboratory).  
+  * **Interactive Objects:** Such as town boxes (TownBox), which can be interacted with to obtain random items.  
+* **UI System:**  
+  * **Dialogue Box (UIdialog):** Used to display NPC dialogues or system messages.  
+  * **Inventory (UIbag):** Opened by pressing the 'B' key; shows player's items (Poké Balls, Potions, Super Potions) and the list of caught Pokémon with their status (level, HP, type).  
+  * **Selection Interface (UIchoose):** Used for choosing the starter Pokémon.  
+* **Battle System (BattleScene):**  
+  * **Turn-based:** Players battle randomly generated wild Pokémon.  
+  * **Basic Commands:** Attack, switch Pokémon, use items from the bag, run away.  
+  * **Skills and PP:** Pokémon have skills that consume PP when used.  
+  * **Damage Calculation:** Considers Pokémon's attack, defense, skill power, level, and type effectiveness (implemented fire/water/grass types, with 20% damage influence).  
+  * **Item Usage:** Can use Potions to restore HP and Super Potions to restore PP during battle.  
+  * **Capture Mechanism:** Use Poké Balls to attempt catching wild Pokémon; success rate depends on both sides' HP.  
+  * **Win/Lose Determination:** Battle ends when one side's Pokémon HP reaches zero.  
+  * **Leveling and Evolution:** After winning, the active Pokémon gains experience and levels up; at certain levels, it evolves and learns new skills (implemented two-stage evolution for the original starter Pokémon).  
+  * **Game Over:** If all player's Pokémon HP reach zero, the game over screen appears.  
+* **Resource Manager (ResourceManager):**  
+  * Centralizes game state management, such as player item quantities, obtained Pokémon list, and game progress flags (e.g., whether the professor has been talked to, whether starter Pokémon have been received).  
+  * Loads and provides global resources like pixel fonts.  
+* **Sound Effects:** Uses QtMultimedia to play background music and sound effects (e.g., button clicks, battle sounds).  
+* **Assets:** Includes pixel-style Pokémon sprites (front and back), player character sprites, map components, UI images, icons, and sound files.  
+
+## Project Structure
+
+```
+
+ncku-cs2-113-proj1-main/
+│
+├── ncku-cs2-113.pro            # Qt project file
+├── ncku-cs2-113\_zh\_TW\.ts       # Translation file (currently empty)
+│
+├── resources/
+│   ├── resources.qrc           # Qt resource file (defines images, fonts, sounds, etc.)
+│   ├── images/                 # Image assets
+│   │   ├── battle/
+│   │   ├── icon/
+│   │   ├── other/
+│   │   ├── player/
+│   │   └── scene/
+│   ├── fonts/                  # Font assets (unifont.ttf)
+│   └── sounds/                 # Sound assets (.wav)
+│
+└── src/                        # Source code directory
+│
+├── GameWindow\.cpp          # Main game window implementation
+├── GameWindow\.h            # Main game window header
+├── main.cpp                # Program entry point
+│
+├── core/                   # Core functionalities
+│   ├── ResourceManager.cpp
+│   ├── ResourceManager.h   # Manages game resources and state
+│   ├── Scene.cpp
+│   └── Scene.h             # Base class for all scenes
+│
+├── entities/               # Game entities (characters, objects)
+│   ├── Barrier.cpp/.h      # Barriers
+│   ├── Ledge.cpp/.h        # Platform edges
+│   ├── NPC.cpp/.h          # Non-player characters
+│   ├── Player.cpp/.h       # Player character
+│   ├── Tallgrass.cpp/.h    # Tall grass
+│   └── TownBox.cpp/.h      # Town boxes
+│
+├── scenes/                 # Game scenes
+│   ├── BattleScene.cpp/.h  # Battle scene
+│   ├── GameOver.cpp/.h     # Game over scene
+│   ├── GrasslandScene.cpp/.h # Grassland scene
+│   ├── LaboratoryScene.cpp/.h# Laboratory scene
+│   ├── TitleScene.cpp/.h   # Title screen scene
+│   └── TownScene.cpp/.h    # Town scene
+│
+├── ui/                     # User interface elements
+│   ├── UIbag.cpp/.h        # Inventory interface
+│   ├── UIchoose.cpp/.h     # Selection interface (starter Pokémon)
+│   └── UIdialog.cpp/.h     # Dialogue box interface
+│
+└── util/                   # Utility classes
+├── ClickableTextItem.cpp/.h # Clickable text item
+
+```
+
+## Build and Run
+
+### Prerequisites
+
+1. **Qt SDK:** Install the Qt development environment (recommended Qt 5.12 or later, or Qt 6). You can download the open-source version from the [Qt official website](https://www.qt.io/download). When installing, ensure you select the desktop components for your platform (e.g., MinGW, MSVC for Windows, or GCC for Linux/macOS) and the Qt Multimedia module.  
+2. **C++ Compiler:** Usually installed with the Qt SDK (e.g., MinGW, MSVC, GCC/Clang).
+
+### Build Steps
+
+1. **Open the Project:** Open the `ncku-cs2-113.pro` file with Qt Creator.  
+2. **Set Build Kit:** Qt Creator usually auto-detects installed Qt versions and compilers. If not, go to “Tools” -> “Options” -> “Kits” (or similar) to configure or select a valid build kit.  
+3. **Build the Project:**  
+   * Click the “Build” button (hammer icon) in the lower-left corner of Qt Creator, or use the shortcut (usually `Ctrl+B`).  
+   * Alternatively, select “Build” -> “Build Project 'ncku-cs2-113'” from the menu.  
+4. **Wait for Compilation to Finish:** The build process will be shown in the “Compile Output” window.
+
+### Run Steps
+
+1. **Run from Qt Creator:**  
+   * After successful build, click the “Run” button (green arrow icon) or use the shortcut (usually `Ctrl+R`).  
+2. **Run Executable Directly:**  
+   * After building, the executable is usually generated in a build directory outside the project folder (e.g., `build-ncku-cs2-113-proj1-main-Desktop_Qt_...`).  
+   * Locate and run the executable file.
+
+## Game Controls
+
+* **Movement:** Arrow keys (↑, ↓, ←, →)  
+* **Interact/Confirm:** A key  
+* **Open/Close Inventory:** B key  
+* **Enter Battle:** P key (usable in grass areas for testing)  
+* **Restart:** Q key (usable in the game over screen)  
